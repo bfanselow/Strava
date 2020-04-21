@@ -10,6 +10,7 @@ The following fields are required for registration of an API Application:
   - Website:  this the URL for the service performing the API access. (Use *https://strava.com* for basic script development)
   - Application Description:  
   - Authorization Callback Domain:  this the **redirect-URI** used by the OAuth process described below. (Use *localhost* for basic script development)
+
 Upon registration of an **API Application**, your App will have the following default parameters:
   * CLIENT_ID:  API-application **id** used by all API authentication sessions (described below)
   * CLIENT_SECRET: API-application **secret** used by all API authentication sessions 
