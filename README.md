@@ -1,7 +1,7 @@
 # Strava
 
 ## Collection of scripts/modules for access Strava API
-
+---
 ### API Application
 Strava provides API access to user data via an **API Application**. Registering an **API Application** is done on the Strava UI portal.
 The following fields are required for registration of an API Application:
@@ -18,6 +18,7 @@ Upon registration of an **API Application**, your App will have the following de
   * REFRESH_TOKEN: Used for re-generating new (limited-scope) access token.
 
 
+---
 ### Authentication
 Strava uses OAuth to allow third-party services access to a user’s data. This involves the following steps:
  1. Service calls Strava with a CLIENT_ID and a redirect-URL.
@@ -27,8 +28,8 @@ Strava uses OAuth to allow third-party services access to a user’s data. This 
 
 With this **access-token**, the service now has access to the user's Strava data using the access-token within the scope granted. 
 
-
-### API Developer access
+---
+### Generating access-token for development cycles 
 Due to the OAuth mechanism above, in order to write and test code for API-access scripts we need a method of obtaining the access-token. This can be done by setting up a simple web server,  or this can be done by by manually stepping through the 4-step authentication process above as follows:
   1. In a browser, hit the URL (where scope is the requested access-scope such as *activity:read_all*)
 ```
@@ -49,5 +50,5 @@ json="{\"client_id\":\"${CLIENT_ID}\", \"client_secret\":\"${CLIENT_SECRET}\", \
 echo "JSON: $json"
 /usr/bin/curl -d "$json" -H 'Content-Type: application/json' https://www.strava.com/oauth/token
 ```
-
+---
 ### Using a simple Python webserver to get the access-token
