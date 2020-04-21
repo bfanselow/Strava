@@ -35,7 +35,7 @@ https://www.strava.com/oauth/authorize?client_id=[CLIENT_ID]&redirect_uri=http:/
   2. This will present a Strava authentication session asking for permission for Strava to authorize the service's access to user data.
   3. Upon submit, the browsers will be redirected to the redirect_URI.  For development purposes the response is found in the browser address bar.  From this response, copy the **ACCESS_CODE**
 ```
-http://[CALL_BACK_DOMAIN]/?state=&code=[ACCESS_CODE]&scope=[SCOPES]**   
+http://[CALL_BACK_DOMAIN]/?state=&code=[ACCESS_CODE]&scope=[SCOPES]
 ```
   4. Make a POST request to with (json) payload containing **CLIENT_ID, CLIENT_SECRET, ACCESS_CODE**, and **grant_type=authorization_code**
 ```
