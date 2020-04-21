@@ -20,19 +20,20 @@ Upon registration of an **API Application**, your App will have the following de
 
 ### Authentication
 Strava uses OAuth to allow third-party services access to a user’s data. This involves the following steps:
- 1. Service calls Strava with a CLIENT_ID and with a redirect-URL.
- 2. The user is authenticates with Strava auth server including specifiyng scope of authentication.
- 3. Strava auth redirects the user's browser back to the service with a short-lived access-token and a refresh-token.
- 4. The service now has access to the user's Strava data within the scope granted. 
+ 1. Service calls Strava with a CLIENT_ID and a redirect-URL.
+ 2. The user is presented with a Strava authentication page which for granting access to the service including specifiyng scope of authentication.
+ 3. Strava auth redirects the user's browser back to the service (redirect-URI) with a short-lived access-token and a refresh-token.
+ 4. The service now has access to the user's Strava data using the access-token within the scope granted. 
 
 
 ### API Developer access
-Due to the OAuth mechanism above, in order to write and test code for API-access scripts we need will set up a simple web server.  It is possible to manually run through the 4-step process above as follows:
+Due to the OAuth mechanism above, in order to write and test code for API-access scripts we need a method of obtaining the access-token. This can be done by setting up a simple web server,  or this can be done by by manually stepping through the 4-step authentication process above as follows:
   1. In a browser, hit the URL: **https://www.strava.com/oauth/authorize?client_id=[CLIENT_ID]&redirect_uri=http://[CALLBACK_DOMAIN]&response_type=code&scope=[SCOPE]** (where scope is access-scope such as *activity:read_all*)
   2. This will present a Strava authentication session asking for permission for Strava to authorize the service's access to user data.
   3. Upon submit, the browsers will be redirected to the redirect_URI.  For development purposes the response is found in the browser address bar: **http://[CALL_BACK_DOMAIN]/?state=&code=[ACCESS_CODE]&scope=[SCOPES]**   
      Copy the **ACCESS_CODE**
   4. Make a POST request to **https://www.strava.com/oauth/token** with json payload containing CLIENT_ID, CLIENT_SECRET, ACCESS_CODE, and "grant_type=authorization_code"
+
 Example curl POST:
 ```
 json="{\"client_id\":\"${CLIENT_ID}\", \"client_secret\":\"${CLIENT_SECRET}\", \"code\":\"${CODE}\", \"grant_type\":\"authorization_code\"}"
