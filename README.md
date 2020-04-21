@@ -28,12 +28,19 @@ Strava uses OAuth to allow third-party services access to a user’s data. This 
 
 ### API Developer access
 Due to the OAuth mechanism above, in order to write and test code for API-access scripts we need a method of obtaining the access-token. This can be done by setting up a simple web server,  or this can be done by by manually stepping through the 4-step authentication process above as follows:
-  1. In a browser, hit the URL: **https://www.strava.com/oauth/authorize?client_id=[CLIENT_ID]&redirect_uri=http://[CALLBACK_DOMAIN]&response_type=code&scope=[SCOPE]** (where scope is access-scope such as *activity:read_all*)
+  1. In a browser, hit the URL (where scope is the requested access-scope such as *activity:read_all*)
+```
+https://www.strava.com/oauth/authorize?client_id=[CLIENT_ID]&redirect_uri=http://[CALLBACK_DOMAIN]&response_type=code&scope=[SCOPE]
+```
   2. This will present a Strava authentication session asking for permission for Strava to authorize the service's access to user data.
-  3. Upon submit, the browsers will be redirected to the redirect_URI.  For development purposes the response is found in the browser address bar: **http://[CALL_BACK_DOMAIN]/?state=&code=[ACCESS_CODE]&scope=[SCOPES]**   
-     Copy the **ACCESS_CODE**
-  4. Make a POST request to **https://www.strava.com/oauth/token** with json payload containing CLIENT_ID, CLIENT_SECRET, ACCESS_CODE, and "grant_type=authorization_code"
-
+  3. Upon submit, the browsers will be redirected to the redirect_URI.  For development purposes the response is found in the browser address bar.  From this response, copy the **ACCESS_CODE**
+```
+http://[CALL_BACK_DOMAIN]/?state=&code=[ACCESS_CODE]&scope=[SCOPES]**   
+```
+  4. Make a POST request to with (json) payload containing **CLIENT_ID, CLIENT_SECRET, ACCESS_CODE**, and **grant_type=authorization_code**
+```
+https://www.strava.com/oauth/token
+```
 Example curl POST:
 ```
 json="{\"client_id\":\"${CLIENT_ID}\", \"client_secret\":\"${CLIENT_SECRET}\", \"code\":\"${CODE}\", \"grant_type\":\"authorization_code\"}"
