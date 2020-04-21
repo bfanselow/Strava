@@ -22,8 +22,10 @@ Upon registration of an **API Application**, your App will have the following de
 Strava uses OAuth to allow third-party services access to a user’s data. This involves the following steps:
  1. Service calls Strava with a CLIENT_ID and a redirect-URL.
  2. The user is presented with a Strava authentication page which for granting access to the service including specifiyng scope of authentication.
- 3. Strava auth redirects the user's browser back to the service (redirect-URI) with a short-lived access-token and a refresh-token.
- 4. The service now has access to the user's Strava data using the access-token within the scope granted. 
+ 3. Strava auth redirects the user's browser back to the service (redirect-URI) with a an **access-code**.
+ 4. The service sends this access-code (along with client-id, and client-secret) to recieve a short-lived **access-token** and **refresh-token**. 
+
+With this **access-token**, the service now has access to the user's Strava data using the access-token within the scope granted. 
 
 
 ### API Developer access
@@ -37,13 +39,15 @@ https://www.strava.com/oauth/authorize?client_id=[CLIENT_ID]&redirect_uri=http:/
 ```
 http://[CALL_BACK_DOMAIN]/?state=&code=[ACCESS_CODE]&scope=[SCOPES]
 ```
-  4. Make a POST request to with (json) payload containing **CLIENT_ID, CLIENT_SECRET, ACCESS_CODE**, and **grant_type=authorization_code**
+  4. Make a POST request with a (json) payload containing **CLIENT_ID, CLIENT_SECRET, ACCESS_CODE**, and **grant_type=authorization_code** to the following URL. The response to this request will contain an **access-token** and a **refresh-token**.
 ```
 https://www.strava.com/oauth/token
 ```
-Example curl POST:
+Example curl POST (using access-code to retrieve access-token):
 ```
 json="{\"client_id\":\"${CLIENT_ID}\", \"client_secret\":\"${CLIENT_SECRET}\", \"code\":\"${CODE}\", \"grant_type\":\"authorization_code\"}"
 echo "JSON: $json"
 /usr/bin/curl -d "$json" -H 'Content-Type: application/json' https://www.strava.com/oauth/token
 ```
+
+### Using a simple Python webserver to get the access-token
