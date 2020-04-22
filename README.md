@@ -30,7 +30,7 @@ With this **access-token**, the service now has access to the user's Strava data
 
 ---
 ### Generating access-token for development cycles 
-Due to the OAuth mechanism above, in order to write and test code for API-access scripts we need a method of obtaining the access-token. This can be done by setting up a simple web server,  or this can be done by by manually stepping through the 4-step authentication process above as follows:
+Due to the OAuth mechanism above, in order to write and test code for API-access scripts we need a method of obtaining the access-token. This can be done by setting up a simple web/api service (see below), or this can be done by by manually stepping through the 4-step authentication process above as follows:
   1. In a browser, hit the URL (where scope is the requested access-scope such as *activity:read_all*)
 ```
 https://www.strava.com/oauth/authorize?client_id=[CLIENT_ID]&redirect_uri=http://[CALLBACK_DOMAIN]&response_type=code&scope=[SCOPE]
@@ -52,6 +52,12 @@ echo "JSON: $json"
 ```
 ---
 ## Using a simple Python API service to get the access-token
+ 1. Populate **auth.json** file:    
+    { "client_id": "<cid>", "client_secret": "<secret>", "access_token": "<token>", "refresh_token": "<token>" }   
+    (where access_token here is the default, limited-scope token created on application-api registration) 
+ 2. Execute **./strava_api_service.py**
 ```
   (venv) $ ./strava_api_service.py
 ```
+ 3. Open a browser to the *ip:port* configured in the strava_api_service.py script (i.e. http://localhost:8080)
+ 4. Got to **http://localhost:8080/authorize** which will automatically take you though the OAuth steps and finally return an access_token 
