@@ -1,6 +1,6 @@
 # Strava
 
-## Collection of scripts/modules for access Strava API
+## Collection of scripts/modules for accessing Strava API
 ---
 ### API Application
 Strava provides API access to user data via an **API Application**. Registering an **API Application** is done on the Strava UI portal.
