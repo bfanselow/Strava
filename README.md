@@ -8,7 +8,7 @@ The following fields are required for registration of an API Application:
   - Application Name: this is an arbitrary identification for the service which will be accessing the data.
   - Category: ???
   - Website:  this the URL for the service performing the API access. (Use *https://strava.com* for basic script development)
-  - Application Description:  
+  - Application Description: Arbitrary description summary 
   - Authorization Callback Domain:  this the **redirect-URI** used by the OAuth process described below. (Use *localhost* for basic script development)
 
 Upon registration of an **API Application**, your App will have the following default parameters:
@@ -51,9 +51,9 @@ echo "JSON: $json"
 /usr/bin/curl -d "$json" -H 'Content-Type: application/json' https://www.strava.com/oauth/token
 ```
 ---
-## Using a simple Python API service to get the access-token
- 1. Populate **auth.json** file:    
-    { "client_id": "<cid>", "client_secret": "<secret>", "access_token": "<token>", "refresh_token": "<token>" }   
+## Using a simple Python API service to get a "scoped" access_token
+ 1. Populate a **auth.json** file:    
+    { "client_id": "\<cid\>", "client_secret": "\<secret\>", "access_token": "\<token\>", "refresh_token": "\<token\>" }   
     (where access_token here is the default, limited-scope token created on application-api registration) 
  2. Execute **./strava_api_service.py**
 ```
