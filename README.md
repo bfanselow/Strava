@@ -51,4 +51,7 @@ echo "JSON: $json"
 /usr/bin/curl -d "$json" -H 'Content-Type: application/json' https://www.strava.com/oauth/token
 ```
 ---
-### Using a simple Python webserver to get the access-token
+## Using a simple Python API service to get the access-token
+```
+  (venv) $ ./strava_api_service.py
+```
